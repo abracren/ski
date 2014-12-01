@@ -1,5 +1,6 @@
 g_size=0;
 g_clickTimer =1;
+g_double = 1;
 
 g_segment = []; //trails array
 

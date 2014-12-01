@@ -12,6 +12,10 @@ var mainLayer = cc.Layer.extend({
         // ask the window size
         var size = cc.winSize;
         g_size = cc.winSize;
+        var centerPos = cc.p(g_size.width / 2, g_size.height / 2);
+        g_widthSize = g_size.width;
+        g_top = g_size.height;
+        g_widthUnit = g_widthSize / 100;
 
         // add a "close" icon to exit the progress. it's an autorelease object
         var closeItem = new cc.MenuItemImage(

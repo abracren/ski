@@ -34,7 +34,7 @@ var Trail = cc.Layer.extend({
 				
 			}else{
 			//cc.log(g_segment[i].y);
-				var actionTo4= new cc.MoveBy(1,cc.p(0,-10)); 
+				var actionTo4= new cc.MoveBy(1,cc.p(0,-20)); 
 				var easeAction4 = new cc.EaseOut(actionTo4,10);
 //			g_segment[i].setPositionY(g_segment[i].y - 10);
 			g_segment[i].runAction(easeAction4);

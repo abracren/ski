@@ -16,7 +16,8 @@
         "src/app.js",
         "src/playScene.js",
         "src/trail.js",
-        "src/testScene.js"
+        "src/testScene.js",
+        "src/Player.js"
         
         
     ]

@@ -7,43 +7,127 @@
 			<key>spr000.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{483,0},{117,555}}</string>
+				<string>{{0,540},{451,556}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{274,33},{117,555}}</string>
+				<string>{{0,98},{451,556}}</string>
 				<key>sourceSize</key>
-				<string>{662,612}</string>
+				<string>{816,1182}</string>
 			</dict>
 
 			<key>spr001.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,0},{482,503}}</string>
+				<string>{{0,1097},{408,589}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{88,45},{482,503}}</string>
+				<string>{{54,54},{408,589}}</string>
 				<key>sourceSize</key>
-				<string>{662,612}</string>
+				<string>{816,1182}</string>
 			</dict>
 
 			<key>spr002.png</key>
 			<dict>
 				<key>frame</key>
-				<string>{{0,504},{467,480}}</string>
+				<string>{{452,0},{291,606}}</string>
 				<key>offset</key>
 				<string>{0,0}</string>
 				<key>rotated</key>
 				<false/>
 				<key>sourceColorRect</key>
-				<string>{{89,56},{467,480}}</string>
+				<string>{{184,27},{291,606}}</string>
 				<key>sourceSize</key>
-				<string>{662,612}</string>
+				<string>{816,1182}</string>
+			</dict>
+
+			<key>spr003.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{804,1256},{197,626}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{274,2},{197,626}}</string>
+				<key>sourceSize</key>
+				<string>{816,1182}</string>
+			</dict>
+
+			<key>spr004.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{1002,1256},{184,630}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{301,3},{184,630}}</string>
+				<key>sourceSize</key>
+				<string>{816,1182}</string>
+			</dict>
+
+			<key>spr005.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{804,623},{234,632}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{319,0},{234,632}}</string>
+				<key>sourceSize</key>
+				<string>{816,1182}</string>
+			</dict>
+
+			<key>spr006.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{744,0},{291,622}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{357,26},{291,622}}</string>
+				<key>sourceSize</key>
+				<string>{816,1182}</string>
+			</dict>
+
+			<key>spr007.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{409,1097},{394,564}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{357,87},{394,564}}</string>
+				<key>sourceSize</key>
+				<string>{816,1182}</string>
+			</dict>
+
+			<key>spr008.png</key>
+			<dict>
+				<key>frame</key>
+				<string>{{0,0},{451,539}}</string>
+				<key>offset</key>
+				<string>{0,0}</string>
+				<key>rotated</key>
+				<false/>
+				<key>sourceColorRect</key>
+				<string>{{352,127},{451,539}}</string>
+				<key>sourceSize</key>
+				<string>{816,1182}</string>
 			</dict>
 
 		</dict>
@@ -53,7 +137,7 @@
 			<key>format</key>
 			<integer>2</integer>
 			<key>size</key>
-			<string>{1024,1024}</string>
+			<string>{2048,2048}</string>
 			<key>textureFileName</key>
 			<string>sprites.png</string>
 			</dict>

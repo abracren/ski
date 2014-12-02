@@ -28,25 +28,25 @@ var PlayerLayer = cc.Layer.extend({
 
 		var animFrames = [];
 		// num equal to spriteSheet
-		for (var i = 2; i < 3; i++) {
+		for (var i = 8; i >=0 ; i--) {
 			var str = "spr00" + i + ".png";
 			var frame = cc.spriteFrameCache.getSpriteFrame(str);
 			animFrames.push(frame);
 		}
 
 		var animation = new cc.Animation(animFrames, 0.1);
-		this.runningAction = new cc.RepeatForever(new cc.Animate(animation));
+		this.runningAction = new cc.Animate(animation);
 		this.runningAction.retain();
 
 		// init jumpUpAction
 		animFrames = [];
-		for (var i = 1; i < 2; i++) {
+		for (var i = 0; i <= 8; i++) {
 			var str = "spr00" + i + ".png";
 			var frame = cc.spriteFrameCache.getSpriteFrame(str);
 			animFrames.push(frame);
 		}
 
-		animation = new cc.Animation(animFrames, 0.2);
+		animation = new cc.Animation(animFrames, 0.1);
 		this.jumpUpAction = new cc.Animate(animation);
 		this.jumpUpAction.retain();
 

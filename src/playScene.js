@@ -109,10 +109,10 @@ var PlayLayer = cc.Layer.extend({
 		
 		//if(g_touchStartCount>15000){
 			if(g_player_direction_togg==1){
-			var actTo6= new cc.MoveTo(.5,cc.p(-eyeX+(g_size.width/3),0));
+			var actTo6= new cc.MoveTo(.5,cc.p(-eyeX+(g_size.width/2),0));
 			g_layer.runAction(actTo6);
 			}else{
-				var actTo9= new cc.MoveTo(.5,cc.p(-eyeX-(g_size.width/3),0));
+				var actTo9= new cc.MoveTo(.5,cc.p(-eyeX-(g_size.width/2),0));
 				g_layer.runAction(actTo9);
 				
 			}
@@ -125,12 +125,12 @@ var PlayLayer = cc.Layer.extend({
 	createSprite: function() {
 		this.addChild(new PlayerLayer(),10);
 		this.player=g_player;
-		this.player.setAnchorPoint(cc.p(0,0));
+		this.player.setAnchorPoint(cc.p(-0,.1));
 
 		this.player.attr({
 			x: g_size.width / 2,
 			y: g_player_y,
-			scale: .4,
+			scale: .2,
 			rotation: 0
 		});
 	},

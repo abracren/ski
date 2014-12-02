@@ -34,7 +34,7 @@ var Trail = cc.Layer.extend({
 				
 			}else{
 			//cc.log(g_segment[i].y);
-				var actionTo4= new cc.MoveBy(1,cc.p(0,-15)); 
+				var actionTo4= new cc.MoveBy(1,cc.p(0,-5)); 
 				var easeAction4 = new cc.EaseOut(actionTo4,10);
 //			g_segment[i].setPositionY(g_segment[i].y - 10);
 			g_segment[i].runAction(easeAction4);
@@ -50,11 +50,21 @@ var Trail = cc.Layer.extend({
 	createTrail:function(){
 		spr = new cc.Sprite(res.CloseNormal_png);
 		spr.attr({
-			x: g_player_current_pos_x,
-			y: g_player_y,
+			x:g_player_current_pos_x+5,
+
+			y: g_player_current_pos_y+35,
 			scale: 1,
 			rotation: 0
 		});
+//		if(g_player_direction_togg==0){
+//		spr.x=g_player_current_pos_x-20;
+//		}else if(g_player_direction_togg==1){
+//			spr.x=g_player_current_pos_x+20;
+//
+//		}else if(g_player_direction_togg==2){
+//			spr.x=g_player_current_pos_x;
+//
+//		}
 		this.addChild(spr,0);
 		g_segment.push(spr);
 		

@@ -4,7 +4,12 @@ var PlayLayer = cc.Layer.extend({
 
 		this._super();
 		g_layer = this;
+		
+		
+		
 		this.addChild(new Trail(), 2);
+		this.addChild(new backgroundLayer(), 0);
+
 		//cc.log("bla");
 		this.createSprite();
 		this.createSprite2();
@@ -14,7 +19,7 @@ var PlayLayer = cc.Layer.extend({
 
 		this.scheduleUpdate();
 		cc.log('width:'+g_size.width);
-//		this.runAction(new cc.OrbitCamera(0, 1, 1,5 ,-32.5 , 90, 0));
+		//this.runAction(new cc.OrbitCamera(0, 1, 1,5 ,-32.5 , 90, 0));
 		
 		//Touch
 		var listener1 = cc.EventListener.create({
@@ -35,6 +40,10 @@ var PlayLayer = cc.Layer.extend({
 //
 //				}, 500);
 				g_touch_started=1;
+				g_player.stopAllActions;
+				g_player_direction_togg_temp = g_player_direction_togg;
+				g_player_direction_togg = 2;
+				g_player.forwards()
 				
 				return true;
 			},
@@ -51,8 +60,9 @@ var PlayLayer = cc.Layer.extend({
 
 				//cc.log(g_touchStartCount);
 				
+				g_player.stopAllActions;
 
-					if(g_player_direction_togg==0){
+					if(g_player_direction_togg_temp==0){
 						g_player_direction_togg=1;
 						g_player.runn();
 
@@ -60,6 +70,7 @@ var PlayLayer = cc.Layer.extend({
 						g_player_direction_togg=0;
 						g_player.jump();
 					}
+					
 				
 //				
 //				if (g_clickTimer == null) {
@@ -91,15 +102,11 @@ var PlayLayer = cc.Layer.extend({
 	},
 	update: function () {
 		g_player_current_pos_x = this.player.x;
-//		cc.log(g_touch_started);
+		g_player_current_pos_y = this.player.y;
+		cc.log(g_player_current_pos_x);
 		
 		
 		
-//		if(g_touchStartCount>1000){
-//			g_double = 1;
-//		}else{
-//			g_double = 0;
-//		}
 //
 
 
@@ -109,28 +116,28 @@ var PlayLayer = cc.Layer.extend({
 		
 		//if(g_touchStartCount>15000){
 			if(g_player_direction_togg==1){
-			var actTo6= new cc.MoveTo(.5,cc.p(-eyeX+(g_size.width/2),0));
-			g_layer.runAction(actTo6);
-			}else{
-				var actTo9= new cc.MoveTo(.5,cc.p(-eyeX-(g_size.width/2),0));
+				var actTo6= new cc.MoveTo(.5,cc.p(-eyeX,0));
+				g_layer.runAction(actTo6);
+			}else if(g_player_direction_togg==0){
+				var actTo9= new cc.MoveTo(.5,cc.p(-eyeX,0));
 				g_layer.runAction(actTo9);
 				
-			}
-//		}else{
-//			var actTo7= new cc.MoveTo(0.5,cc.p(-eyeX,0));
-//			g_layer.runAction(actTo7);
-//		}
+			}else{
+				g_layer.stopAllActions();
+				var actTo7= new cc.MoveTo(0.5,cc.p(-eyeX,0));
+				g_layer.runAction(actTo7);
+				}
 		
 	},
 	createSprite: function() {
 		this.addChild(new PlayerLayer(),10);
 		this.player=g_player;
-		this.player.setAnchorPoint(cc.p(-0,.1));
+		this.player.setAnchorPoint(cc.p(0,.1));
 
 		this.player.attr({
 			x: g_size.width / 2,
 			y: g_player_y,
-			scale: .2,
+			scale: .3,
 			rotation: 0
 		});
 	},
@@ -139,7 +146,7 @@ var PlayLayer = cc.Layer.extend({
 		this.player2 = new cc.Sprite(res.CloseNormal_png);
 		this.player2.attr({
 			x: g_size.width / 2,
-			y: g_player_y,
+			y: g_player_y+200,
 			scale: 1,
 			rotation: 0
 		});
@@ -151,33 +158,37 @@ var PlayLayer = cc.Layer.extend({
 			g_touchStartCount++;
 		}
 //		if(g_double==0){
-		if(g_touch_started==0){
+		//if(g_touch_started==0){
 			if(g_player_direction_togg==0 ){
-				var actionTo2 = new cc.MoveBy(0.51, cc.p(10, 0));
+				
+				var actionTo2 = new cc.MoveBy(0.51, cc.p(5, 0));
 				var easeAction = new cc.EaseElasticOut(actionTo2,2.5);
 	
 				this.player.runAction(easeAction);
 				//this.player.setPositionX(this.player.x +10 )
 	
-			}else{
-				var actionTo2 = new cc.MoveBy(0.51, cc.p(-10, 0));
+			}else if(g_player_direction_togg==1 ){
+				var actionTo2 = new cc.MoveBy(0.51, cc.p(-5, 0));
 				var easeAction =new cc.EaseElasticOut(actionTo2,2.5);
 				this.player.runAction(easeAction);
 				//this.player.setPositionX(this.player.x -10 )
 	
 	
+			}else if(g_player_direction_togg==2 ){
+				
+				var actionTo3 = new cc.MoveBy(0.5, cc.p(-5, 0));
+//				var easeAction3 = new cc.EaseIn(actionTo3,2.5);
+				
+				var actionTo4 = new cc.MoveBy(0.5, cc.p(5, 0));
+//				var easeAction3 = new cc.EaseIn(actionTo3,2.5);
+
+				var sequence1 =  cc.sequence(  actionTo3,actionTo4);
+
+				this.player.runAction(sequence1);
+				//this.player.stopAllActions();
 			}
 			
-		}else{
 		
-			var actionTo3 = new cc.MoveTo(0.5, cc.p(100, g_player_y));
-			var easeAction3 = new cc.EaseIn(actionTo3,2.5);
-			
-//			var sequence1 = new cc.Sequence(actionTo3,actionTo4);
-			
-			//this.player.runAction(actionTo3);
-			this.player.stopAllActions();
-		}
 	},
 	movePlayer:function(){
 		
@@ -201,6 +212,7 @@ var PlayLayer = cc.Layer.extend({
 
 PlayLayer.scene = function() {
 	var scene = new cc.Scene;
+	scene.setColor(new cc.Color(255,255,255,1));
 	var layer = new PlayLayer();
 	scene.addChild(layer);
 	return scene;

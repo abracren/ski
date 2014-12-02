@@ -2,7 +2,7 @@ if(typeof RunnerStat == "undefined") {
 	var RunnerStat = {};
 	RunnerStat.running = 0;
 	RunnerStat.jumpUp = 1;
-	RunnerStat.jumpDown = 2;
+	RunnerStat.forwarding = 2;
 	
 };
 
@@ -28,7 +28,7 @@ var PlayerLayer = cc.Layer.extend({
 
 		var animFrames = [];
 		// num equal to spriteSheet
-		for (var i = 8; i >=0 ; i--) {
+		for (var i = 8; i =0 ; i--) {
 			var str = "spr00" + i + ".png";
 			var frame = cc.spriteFrameCache.getSpriteFrame(str);
 			animFrames.push(frame);
@@ -40,7 +40,7 @@ var PlayerLayer = cc.Layer.extend({
 
 		// init jumpUpAction
 		animFrames = [];
-		for (var i = 0; i <= 8; i++) {
+		for (var i = 0; i = 8; i++) {
 			var str = "spr00" + i + ".png";
 			var frame = cc.spriteFrameCache.getSpriteFrame(str);
 			animFrames.push(frame);
@@ -49,6 +49,18 @@ var PlayerLayer = cc.Layer.extend({
 		animation = new cc.Animation(animFrames, 0.1);
 		this.jumpUpAction = new cc.Animate(animation);
 		this.jumpUpAction.retain();
+		
+		var animFrames = [];
+		// num equal to spriteSheet
+		for (var i = 4; i =4 ; i--) {
+			var str = "spr00" + i + ".png";
+			var frame = cc.spriteFrameCache.getSpriteFrame(str);
+			animFrames.push(frame);
+		}
+
+		var animation = new cc.Animation(animFrames, 0.1);
+		this.forwardAction = new cc.Animate(animation);
+		this.forwardAction.retain();
 
 		//var animation = new cc.Animation(animFrames, 0.1);
 		//this.runningAction = new cc.RepeatForever(new cc.Animate(animation));
@@ -62,26 +74,35 @@ var PlayerLayer = cc.Layer.extend({
 	},
 	jump:function () {
 		cc.log("jump");
-		if (this.stat == RunnerStat.running) {
+		
 			//this.body.applyImpulse(cp.v(0, 250), cp.v(0, 0));
 			this.stat = RunnerStat.jumpUp;
 			this.sprite.stopAllActions();
 			this.sprite.runAction(this.jumpUpAction);
-		}
+		
 	},
 	runn:function () {
 		cc.log("run");
-		if (this.stat == RunnerStat.jumpUp) {
+		
 			//this.body.applyImpulse(cp.v(0, 250), cp.v(0, 0));
 			this.stat = RunnerStat.running;
 			this.sprite.stopAllActions();
 			this.sprite.runAction(this.runningAction);
-		}
+		
+	},
+	forwards:function () {
+		cc.log("forward");
+		
+			//this.body.applyImpulse(cp.v(0, 250), cp.v(0, 0));
+			this.stat = RunnerStat.forwarding;
+			this.sprite.stopAllActions();
+			this.sprite.runAction(this.forwardAction);
+		
 	},
 	onExit:function() {
 		this.runningAction.release();
 		this.jumpUpAction.release();
-		//this.jumpDownAction.release();
+		this.forwardAction.release();
 		this._super();
 	},
 

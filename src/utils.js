@@ -11,6 +11,7 @@ g_player_direction_togg = 0;
 g_player_y = 150;
 
 
+
 //Touch
 
 g_touchStartCount = 0; //Time Counter Touch pressed.

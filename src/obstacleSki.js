@@ -24,9 +24,9 @@ var obstacle = cc.Layer.extend({
 		this.spriteSheet = new cc.SpriteBatchNode("res/obstacle.png");
 		this.addChild(this.spriteSheet);
 		g_obstacle= this;
-		//this.runAction(cc.OrbitCamera.create(0, 1, 1, 90, 80.5, 90, 0));
-
-
+		if(g_3d==1){
+			this.runAction(cc.OrbitCamera.create(0, 1, 1, 90, -80.5, 90, 0));
+		}
 		var animFrames = [];
 		// num equal to spriteSheet
 		for (var i = 0; i<1 ; i++) {
@@ -43,7 +43,6 @@ var obstacle = cc.Layer.extend({
 		// num equal to spriteSheet
 		for (var i = 10; i<11 ; i++) {
 			var str = "obstacle0" + i + ".png";
-			cc.log(str);
 			var frame = cc.spriteFrameCache.getSpriteFrame(str);
 			animFrames.push(frame);
 		}
@@ -61,7 +60,7 @@ var obstacle = cc.Layer.extend({
 
 	},
 	treePasive:function () {
-		cc.log("treeAnim");
+		//cc.log("treeAnim");
 
 		this.stat = obstacleStat.treePasive;
 		this.sprite.stopAllActions();

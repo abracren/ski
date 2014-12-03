@@ -1,6 +1,7 @@
 //general
 
 g_speed=2;
+g_3d=0;
 
 g_size=0;
 g_clickTimer =1;
@@ -8,6 +9,8 @@ g_double = 1;
 //objects arrays
 g_obstacles = [];
 g_segment = []; //trails array
+g_objectsToRemove = []; // 
+
 
 
 

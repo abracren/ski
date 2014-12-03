@@ -21,6 +21,8 @@ var PlayLayer = cc.Layer.extend({
 		this.schedule(this.updateEverySecond, 1);
 		this.schedule(this.updateEveryTwoSeconds, 2);
 		this.schedule(this.createObstacle, .5);
+		this.schedule(this.deleteTemporalRects, .05);
+
 
 
 		this.scheduleUpdate();
@@ -29,7 +31,9 @@ var PlayLayer = cc.Layer.extend({
 		
 		
 		//cc.log('width:'+g_size.width);
-		//this.runAction(new cc.OrbitCamera(0, 1, 1,5 ,-12.5 , 90, 0));
+		if(g_3d==1){
+		this.runAction(new cc.OrbitCamera(0, 1, 1,5 ,-12.5 , 90, 0));
+		}
 		
 		//Touch
 		var listener1 = cc.EventListener.create({
@@ -70,11 +74,11 @@ var PlayLayer = cc.Layer.extend({
 			},
 
 			onTouchEnded: function(touch, event) {
-				cc.log("ended");
+				//cc.log("ended");
 				if (g_clickTimer == null) {
 					g_clickTimer = setTimeout(function () {
 						g_clickTimer = null;
-						cc.log('simple');
+						//cc.log('simple');
 						g_double=0;
 
 
@@ -132,34 +136,60 @@ var PlayLayer = cc.Layer.extend({
 		g_player_current_pos_y = this.player.y;
 		
 		
-		var ccsize = g_player.getContentSize();
-		playerColRect = cc.rect(
-				g_player.x - (ccsize.width / 2),
-				g_player.y - (ccsize.height / 2),
-				ccsize.width ,
-				ccsize.height);
-	//	cc.log(playerColRect.width);
+		//g_bbDisplay.x=g_player_current_pos_x-60;
+		//g_bbDisplay.y=g_player_current_pos_y;
+		g_playerColRect.x=g_player_current_pos_x-60;
+		g_playerColRect.y=g_player_current_pos_y;
+
 		
-//	
 		for (i in g_obstacles) {
 
-			if (g_obstacles[i].getPositionY() < g_player_current_pos_y) {
-				
-				//cc.log(g_obstacles[i].getTag());
-				//var sprr= g_layer.getChildByTag(g_obstacles[i].getTag());
-				//sprr.treePasive();
-				this.setZorder(g_obstacles[i], 80000);
-				
-				//var f = g_obstacles_shadows_sprites.indexOf(g_obstacles_shadows_sprites[i]);
-				
-			} else {
-				//  cc.log('nocoll');
+
+			
+			
+			var sprr= g_layer.getChildByTag(g_obstacles[i].getTag());
+			var coliderOBstacle = this.collideRect(sprr);
+			
+			if(g_isJumping!=1){
+				if (cc.rectIntersectsRect(
+						g_playerColRect,coliderOBstacle )) {
+					//cc.log('colider');
+					sprr= g_layer.getChildByTag(g_obstacles[i].getTag());
+					//sprr.treePasive();
+					sprr.attr({
+						scale:.4,
+					});
+	
+				} else {
+					// cc.log('nocoll');
+				}
+			
+				if (g_obstacles[i].getPositionY() < g_player_current_pos_y) {
+					
+					
+					//cc.log(g_obstacles[i].getTag());
+					//var sprr= g_layer.getChildByTag(g_obstacles[i].getTag());
+					//sprr.treePasive();
+					this.setZorder(g_obstacles[i], 80000);
+					
+					//var f = g_obstacles_shadows_sprites.indexOf(g_obstacles_shadows_sprites[i]);
+					
+				} else {
+					//  cc.log('nocoll');
+				}
 			}
+
+		}
+		
+		for (i in g_objectsToRemove) {
+			this.removeSprite(g_objectsToRemove[i], 'ToRemove');
+			g_objectsToRemove.splice(i, 1);
 
 		}
 
 
 	},
+	
 	updateEvery1:function(){
 		if(g_player_direction_togg==2 && g_drag==1){
 //			cc.log("playerx.="+g_player.getPositionX());
@@ -239,6 +269,26 @@ var PlayLayer = cc.Layer.extend({
 			scale: .3,
 			rotation: 0
 		});
+		this.createPLayerBoundingBox();
+	},
+	createPLayerBoundingBox:function(){
+		var ccsize = g_player.getContentSize();
+		g_playerColRect = cc.rect(
+				30,
+				0,
+				90 ,
+				100);
+		//cc.log(playerColRect.x);
+//		 g_bbDisplay = new cc.DrawNode();
+//
+//		 g_bbDisplay.drawRect(
+//				cc.p(30,0),
+//				cc.p(90 ,100),
+//				cc.color(0, 255, 255, 50), 
+//				2
+//				, cc.color(128, 128, 0, 255)
+//		);
+//		 g_layer.addChild(g_bbDisplay, 100000000);
 	},
 	createObstacle: function() {
 		this.addChild(new obstacle(),g_obstacleZorder);
@@ -249,6 +299,8 @@ var PlayLayer = cc.Layer.extend({
 			x: this.randomIntFromInterval(g_player.x-600,g_player.x+600),
 			y: g_size.height+200,
 			scale:.3,
+			height:20,
+			width:20,
 			rotation: 0
 		});
 		var ranthre=this.randomIntFromInterval(0,1);
@@ -270,8 +322,15 @@ var PlayLayer = cc.Layer.extend({
 			g_obstacleZorder = 99;
 		}
 	},
+
+	collideRect : function(sprr) {
+		var a = sprr.getContentSize();
+		var p = sprr.getPosition();
+		//cc.log(p.x- a.width / 2 + ' ' +  sprr.width );
+		return cc.rect(p.x - a.width / 2, p.y - a.height / 2, a.width, a.height);
+	},
 	
-	createSprite2: function() {
+	createSprite2:function() {
 		this.player2 = new cc.Sprite(res.CloseNormal_png);
 		this.player2.attr({
 			x: g_size.width / 2,
@@ -414,6 +473,10 @@ var PlayLayer = cc.Layer.extend({
 
 			g_obstacles.splice(i, 1);
 
+		}else if(tagg == "ToRemove"){
+			var i = g_objectsToRemove.indexOf(sprite);
+
+			g_objectsToRemove.splice(i, 1);
 		}
 		g_layer.removeChild(sprite, true);
 

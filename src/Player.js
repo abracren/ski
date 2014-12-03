@@ -27,13 +27,9 @@ var PlayerLayer = cc.Layer.extend({
 		this.spriteSheet = new cc.SpriteBatchNode("res/sprites.png");
 		this.addChild(this.spriteSheet);
 		g_player= this;
-		var ccsize = this.getContentSize();
-//		playerColRect = cc.rect(
-//				this.x - (ccsize.width / 2),
-//				this.y - (ccsize.height / 2),
-//				ccsize.width + 12,
-//				ccsize.height + 24);
-//		g_playerRect= playerColRect;
+		if(g_3d==1){
+			this.runAction(cc.OrbitCamera.create(0, 1, 1, 90, -80.5, 0, 0));
+		}
 
 		var animFrames = [];
 		// num equal to spriteSheet
@@ -94,7 +90,7 @@ var PlayerLayer = cc.Layer.extend({
 		
 	},
 	right:function () {
-		cc.log("jump");
+		//cc.log("right");
 		
 			//this.body.applyImpulse(cp.v(0, 250), cp.v(0, 0));
 			this.stat = RunnerStat.righting;
@@ -103,7 +99,7 @@ var PlayerLayer = cc.Layer.extend({
 		
 	},
 	left:function () {
-		cc.log("run");
+		//cc.log("left");
 		
 			//this.body.applyImpulse(cp.v(0, 250), cp.v(0, 0));
 			this.stat = RunnerStat.lefting;
@@ -112,7 +108,7 @@ var PlayerLayer = cc.Layer.extend({
 		
 	},
 	halfRight:function () {
-		cc.log("forward");
+		//cc.log("halfRight");
 		
 			//this.body.applyImpulse(cp.v(0, 250), cp.v(0, 0));
 			this.stat = RunnerStat.halfRightting;
@@ -122,7 +118,7 @@ var PlayerLayer = cc.Layer.extend({
 	},
 	
 	forwards:function () {
-		cc.log("forward");
+		//cc.log("forward");
 
 		//this.body.applyImpulse(cp.v(0, 250), cp.v(0, 0));
 		this.stat = RunnerStat.forwarding;

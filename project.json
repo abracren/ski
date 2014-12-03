@@ -18,7 +18,9 @@
         "src/trail.js",
         "src/testScene.js",
         "src/Player.js",
-        "src/background.js"
+        "src/background.js",
+        "src/obstacleSki.js"
+        
         
         
     ]

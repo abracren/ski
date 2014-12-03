@@ -8,11 +8,12 @@ var backgroundLayer = cc.Layer.extend({
 	},
 	init:function () {
 		this._super();
-
+		var gradientLayer = new cc.LayerGradient(new cc.Color(205,239,250,255),new cc.Color(255,255,255,255),cc.p(0,0.9))
 		var whiteBackground = new cc.LayerColor(new cc.Color(255,255,255,255));
-		this.addChild(whiteBackground);
+		this.addChild(gradientLayer);
 		this.attr({
-			scale:10000000,
+			scaleX:10000000,
+			
 		});
 
 

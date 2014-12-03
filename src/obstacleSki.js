@@ -24,6 +24,7 @@ var obstacle = cc.Layer.extend({
 		this.spriteSheet = new cc.SpriteBatchNode("res/obstacle.png");
 		this.addChild(this.spriteSheet);
 		g_obstacle= this;
+		//this.runAction(cc.OrbitCamera.create(0, 1, 1, 90, 80.5, 90, 0));
 
 
 		var animFrames = [];

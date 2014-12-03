@@ -46,6 +46,7 @@
  }
  *
  */
+cc.SPRITE_DEBUG_DRAW =  1;
 
 cc.game.onStart = function(){
     cc.view.adjustViewPort(true);

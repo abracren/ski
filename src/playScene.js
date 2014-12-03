@@ -29,7 +29,7 @@ var PlayLayer = cc.Layer.extend({
 		
 		
 		//cc.log('width:'+g_size.width);
-		//this.runAction(new cc.OrbitCamera(0, 1, 1,5 ,-32.5 , 90, 0));
+		//this.runAction(new cc.OrbitCamera(0, 1, 1,5 ,-12.5 , 90, 0));
 		
 		//Touch
 		var listener1 = cc.EventListener.create({
@@ -94,7 +94,7 @@ var PlayLayer = cc.Layer.extend({
 				g_touch_started=0;
 				
 
-				cc.log(g_touchStartCount);
+//				cc.log(g_touchStartCount);
 				
 				g_player.stopAllActions;
 
@@ -138,14 +138,14 @@ var PlayLayer = cc.Layer.extend({
 				g_player.y - (ccsize.height / 2),
 				ccsize.width ,
 				ccsize.height);
-		cc.log(playerColRect.width);
+	//	cc.log(playerColRect.width);
 		
 //	
 		for (i in g_obstacles) {
 
 			if (g_obstacles[i].getPositionY() < g_player_current_pos_y) {
 				
-				cc.log(g_obstacles[i].getTag());
+				//cc.log(g_obstacles[i].getTag());
 				//var sprr= g_layer.getChildByTag(g_obstacles[i].getTag());
 				//sprr.treePasive();
 				this.setZorder(g_obstacles[i], 80000);
@@ -162,12 +162,12 @@ var PlayLayer = cc.Layer.extend({
 	},
 	updateEvery1:function(){
 		if(g_player_direction_togg==2 && g_drag==1){
-			cc.log("playerx.="+g_player.getPositionX());
-			cc.log("touchX " + g_pos_current.x);
-			cc.log(g_pos_target);
+//			cc.log("playerx.="+g_player.getPositionX());
+//			cc.log("touchX " + g_pos_current.x);
+//			cc.log(g_pos_target);
 
 			
-			cc.log("ble = "+g_player.getPositionX()+g_pos_current.x);
+//			cc.log("ble = "+g_player.getPositionX()+g_pos_current.x);
 			//if positive or negative
 //			g_player.x=g_pos_current.x;
 

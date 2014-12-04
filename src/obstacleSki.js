@@ -20,8 +20,8 @@ var obstacle = cc.Layer.extend({
 		this._super();
 
 		g_obstacle = this;
-		cc.spriteFrameCache.addSpriteFrames("res/obstacle.plist");
-		this.spriteSheet = new cc.SpriteBatchNode("res/obstacle.png");
+		cc.spriteFrameCache.addSpriteFrames(res.obstacle_plist);
+		this.spriteSheet = new cc.SpriteBatchNode(res.obstacle_png);
 		this.addChild(this.spriteSheet);
 		g_obstacle= this;
 		if(g_3d==1){

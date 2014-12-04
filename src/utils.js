@@ -2,6 +2,9 @@
 
 g_speed=2;
 g_3d=0;
+g_paticle_count=1000;
+g_paticle_trail_count=2000;
+
 
 g_size=0;
 g_clickTimer =1;
@@ -10,6 +13,8 @@ g_double = 1;
 g_obstacles = [];
 g_segment = []; //trails array
 g_objectsToRemove = []; // 
+g_particles_behind = [];
+g_particles_trail = [];
 
 
 

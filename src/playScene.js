@@ -21,7 +21,9 @@ var PlayLayer = cc.Layer.extend({
 		this.schedule(this.updateEverySecond, 1);
 		this.schedule(this.updateEveryTwoSeconds, 2);
 		this.schedule(this.createObstacle, .5);
-		this.schedule(this.deleteTemporalRects, .05);
+		this.schedule(this.deleteParticles, .5);
+		this.schedule(this.deleteParticlesTrail, .2);
+
 
 
 
@@ -141,13 +143,14 @@ var PlayLayer = cc.Layer.extend({
 		g_playerColRect.x=g_player_current_pos_x-60;
 		g_playerColRect.y=g_player_current_pos_y;
 
+		this.createParticleTrail(g_playerColRect.x+70,g_playerColRect.y+20);
+		
+		
 		
 		for (i in g_obstacles) {
 
-
-			
-			
 			var sprr= g_layer.getChildByTag(g_obstacles[i].getTag());
+			//cc.log(sprr.getTag());
 			var coliderOBstacle = this.collideRect(sprr);
 			
 			if(g_isJumping!=1){
@@ -155,10 +158,12 @@ var PlayLayer = cc.Layer.extend({
 						g_playerColRect,coliderOBstacle )) {
 					//cc.log('colider');
 					sprr= g_layer.getChildByTag(g_obstacles[i].getTag());
+					this.createParticleBehind(g_player_current_pos_x,g_player_current_pos_y)
+
 					//sprr.treePasive();
-					sprr.attr({
-						scale:.4,
-					});
+//					sprr.attr({
+//						scale:.4,
+//					});
 	
 				} else {
 					// cc.log('nocoll');
@@ -181,6 +186,27 @@ var PlayLayer = cc.Layer.extend({
 
 		}
 		
+		
+		for(i in g_particles_behind){
+			sprr= g_layer.getChildByTag(g_particles_behind[i].getTag());
+			
+			sprr.runAction(
+					cc.sequence( 
+							new cc.MoveBy(2, cc.p(0, -110))
+
+					));
+		}
+		for(i in g_particles_trail){
+			sprr= g_layer.getChildByTag(g_particles_trail[i].getTag());
+
+			sprr.runAction(
+					cc.sequence( 
+							new cc.MoveBy(2, cc.p(0, -30))
+
+					));
+		}
+
+		
 		for (i in g_objectsToRemove) {
 			this.removeSprite(g_objectsToRemove[i], 'ToRemove');
 			g_objectsToRemove.splice(i, 1);
@@ -200,8 +226,7 @@ var PlayLayer = cc.Layer.extend({
 //			cc.log("ble = "+g_player.getPositionX()+g_pos_current.x);
 			//if positive or negative
 //			g_player.x=g_pos_current.x;
-
-
+			
 
 		}
 	},
@@ -216,7 +241,42 @@ var PlayLayer = cc.Layer.extend({
 
 		this.player.runAction(sequence1);
 		//this.player.stopAllActions();
+		
+//		},
+		
+	},
+	deleteParticles:function(){
+		for (i in g_particles_behind) {
 
+			var sprr3= g_layer.getChildByTag(g_particles_behind[i].getTag());
+			
+
+			g_layer.removeChild(sprr3, true);
+			
+			var i = g_particles_behind.indexOf(sprr3);
+			//sprr3.release();
+			g_particles_behind.splice(i, 1);
+
+		}
+
+
+
+
+		
+	},
+	deleteParticlesTrail:function(){
+		for (i in g_particles_trail) {
+
+			var sprr3= g_layer.getChildByTag(g_particles_trail[i].getTag());
+
+
+			g_layer.removeChild(sprr3, true);
+
+			var i = g_particles_trail.indexOf(sprr3);
+			//sprr3.release();
+			g_particles_trail.splice(i, 1);
+
+		}
 
 
 		
@@ -312,7 +372,7 @@ var PlayLayer = cc.Layer.extend({
 
 		}
 		this.obstacle.setTag(g_obstacleZorder);
-		var downTo = new cc.MoveBy(g_speed,cc.p(0,-1000));
+		var downTo = new cc.MoveBy(g_speed,cc.p(0,-1300));
 		
 		
 		this.obstacle.runAction(cc.sequence(downTo, cc.CallFunc.create(this.removeSprite, this, 'obstacle')));
@@ -340,6 +400,54 @@ var PlayLayer = cc.Layer.extend({
 		});
 
 		this.addChild(this.player2, 0);
+	},
+	createParticleBehind: function(xpos,ypos) {
+		this.addChild(new particleLayer(),999999);
+		this.particle=g_particle;
+
+		this.particle.attr({
+			x: xpos,
+			y: ypos,
+			scaleX: .5,
+			rotation: 0
+		});
+		this.particle.setAnchorPoint(cc.p(0,0));
+
+		this.particle.setTag(g_paticle_count);
+		
+		this.particle.snowExp();
+		this.particle.fallBehind();
+		g_particles_behind.push(this.particle);
+		g_paticle_count++;
+		
+			
+		
+			
+			
+	},
+	createParticleTrail: function(xpos,ypos) {
+		this.addChild(new particleLayer(),150);
+		this.particle=g_particle;
+
+		this.particle.attr({
+			x: xpos,
+			y: ypos,
+			scale: .2,
+			rotation: 90
+		});
+		this.particle.setAnchorPoint(cc.p(0,0));
+
+		this.particle.setTag(g_paticle_trail_count);
+
+		this.particle.snowExp();
+		this.particle.fallBehind();
+		g_particles_trail.push(this.particle);
+		g_paticle_trail_count++;
+
+
+
+
+
 	},
 	startTouchCount:function(){
 		if(g_touch_started==1){

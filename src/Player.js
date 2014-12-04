@@ -23,8 +23,8 @@ var PlayerLayer = cc.Layer.extend({
 		this._super();
 
 		// create sprite sheet
-		cc.spriteFrameCache.addSpriteFrames("res/sprites.plist");
-		this.spriteSheet = new cc.SpriteBatchNode("res/sprites.png");
+		cc.spriteFrameCache.addSpriteFrames(res.player_plist);
+		this.spriteSheet = new cc.SpriteBatchNode(res.player_png);
 		this.addChild(this.spriteSheet);
 		g_player= this;
 		if(g_3d==1){

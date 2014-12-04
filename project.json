@@ -19,7 +19,9 @@
         "src/testScene.js",
         "src/Player.js",
         "src/background.js",
-        "src/obstacleSki.js"
+        "src/obstacleSki.js",
+        "src/particles.js"
+        
         
         
         
